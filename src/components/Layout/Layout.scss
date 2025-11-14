@@ -1,0 +1,246 @@
+.app-layout {
+  height: 100vh;
+  overflow: hidden;
+
+  // Primary sidebar - First level (narrow, theme-aware)
+  .primary-sidebar {
+    height: 100vh;
+    position: fixed;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 80px;
+    background-color: var(--sidebar-bg);
+    box-shadow: 2px 0 5px var(--shadow);
+    z-index: 1002;
+    border-right: 1px solid var(--border-color);
+    transition: background-color 0.3s ease;
+
+    .sidebar-header {
+      border-bottom: 1px solid var(--border-color);
+      
+      div {
+        color: var(--text-primary);
+        font-size: 1.5rem;
+      }
+    }
+
+    .nav {
+      padding: 0;
+    }
+
+    .primary-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 0.25rem;
+      color: var(--text-secondary);
+      border: none;
+      background: transparent;
+      width: 100%;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      position: relative;
+
+      i {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .nav-label {
+        font-size: 0.7rem;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .chevron-icon {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        color: var(--text-primary);
+        background-color: var(--hover-bg);
+        text-decoration: none;
+      }
+
+      &.active {
+        color: var(--active-color);
+        background-color: var(--active-bg);
+        border-left-color: var(--active-color);
+      }
+    }
+
+    // Theme toggle button at bottom
+    .theme-toggle-container {
+      padding: 1rem 0;
+      border-top: 1px solid var(--border-color);
+
+      .theme-toggle-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 0.25rem;
+        color: var(--text-secondary);
+        border: none;
+        background: transparent;
+        width: 100%;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        i {
+          font-size: 1.5rem;
+          margin-bottom: 0.25rem;
+        }
+
+        .nav-label {
+          font-size: 0.7rem;
+          text-align: center;
+          white-space: nowrap;
+        }
+
+        &:hover {
+          color: var(--text-primary);
+          background-color: var(--hover-bg);
+        }
+      }
+    }
+  }
+
+  // Secondary sidebar - Second level (MCP submenu)
+  .secondary-sidebar {
+    height: 100vh;
+    position: fixed;
+    padding: 0;
+    top: 0;
+    left: 80px;
+    width: 0;
+    overflow: hidden;
+    background-color: var(--sidebar-secondary-bg);
+    box-shadow: 2px 0 5px var(--shadow);
+    transition: width 0.3s ease, background-color 0.3s ease;
+    z-index: 1001;
+    border-right: 1px solid var(--border-color);
+
+    &.expanded {
+      width: 220px;
+    }
+
+    .sidebar-header {
+      border-bottom: 1px solid var(--border-color);
+      height: 69px;
+      h6 {
+        display: flex;
+        color: var(--text-primary);
+        font-weight: 600;
+        white-space: nowrap;
+        height: 69px;
+        align-items: center;
+      }
+    }
+
+    .nav {
+      padding: 0;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      padding: 0.75rem 1.25rem;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 0.9rem;
+
+      &:hover {
+        color: var(--text-primary);
+        background-color: var(--hover-bg);
+      }
+
+      &.active {
+        color: var(--active-color);
+        background-color: var(--active-bg);
+        border-left-color: var(--active-color);
+        font-weight: 500;
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  // Main content area - adjusts based on sidebar state
+  .main-content-wrapper {
+    padding: 0;
+    height: 100vh;
+    overflow-y: auto;
+    margin-left: 80px;
+    transition: margin-left 0.3s ease, background-color 0.3s ease;
+    width: calc(100% - 80px);
+    background-color: var(--bg-primary);
+    
+    &.mcp-expanded {
+      margin-left: 300px; // 80px + 220px
+      width: calc(100% - 300px);
+    }
+
+    @media (max-width: 991.98px) {
+      margin-left: 0;
+      width: 100%;
+      height: calc(100vh - 56px);
+    }
+  }
+}
+
+// Mobile navbar
+.navbar {
+  button {
+    border: none;
+    font-size: 1.5rem;
+    
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+// Mobile offcanvas
+.offcanvas {
+  .nav-link {
+    color: #495057; /* Dark gray for text */
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+
+    &:hover {
+      color: #212529;
+      background-color: #e9ecef;
+    }
+
+    &.active {
+      color: #0d6efd;
+      background-color: #e7f1ff;
+      font-weight: 500;
+    }
+  }
+
+  .nav-section {
+    margin-top: 1rem;
+
+    .nav-section-title {
+      padding: 0.5rem 1rem;
+      color: #6c757d; /* Medium gray for section titles */
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+  }
+}
